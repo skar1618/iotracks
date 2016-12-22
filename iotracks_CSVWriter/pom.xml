@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.iotracks</groupId>
+  <artifactId>CSVWriter</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>CSVWriter</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+	    <groupId>javax.json</groupId>
+	    <artifactId>javax.json-api</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.iotracks</groupId>
+	  <artifactId>container-java-sdk</artifactId>
+	  <version>1.1.1</version>
+	  <scope>system</scope>
+      <systemPath>C://Users/sambamoorthy.k/workspace/iotracks_CSVWriter/src/repo/com/iotracks/container-java-sdk/1.1.1/container-java-sdk-1.1.1.jar</systemPath>
+	</dependency>
+  </dependencies>
+</project>
