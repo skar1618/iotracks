@@ -1,4 +1,3 @@
-package com.iotracks.CSVWriter;
 
 import java.util.List;
 
@@ -19,14 +18,14 @@ public class IOFogAPIListenerImpl implements IOFogAPIListener{
 		
 	}
 
-	public void onMessageReceipt(String arg0, long arg1) {
-		// TODO Auto-generated method stub
-		
+	public void onMessageReceipt(String messageID, long timestamp) {
+		System.out.println("CSVWriter Message ID: " + messageID + ", timestamp: " + timestamp);
 	}
 
 	public void onMessages(List<IOMessage> msgs) {
+		System.out.println("CSVWriter inside onMessages");
 		IOMessage msg = msgs.get(0);
-		JsonObject json = msg.getJson();
+		JsonObject json = msg.getJson(false);
 		CSVWriter writer = new CSVWriter();
 		writer.writeCSV(json);
 	}
