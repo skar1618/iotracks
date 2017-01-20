@@ -12,11 +12,13 @@ import com.iotracks.api.IOFogClient;
 import com.iotracks.api.listener.IOFogAPIListener;
 
 public class CSVWriter {
-	
+
 	String path = System.getProperty("user.dir");
 	String fileExt = ".csv";
 	String comma = ", ";
+
 	public void writeCSV(JsonObject json) {
+		System.out.println("writeCSV ... ");
 		String contentString = json.getString("contentdata");
 		String contextString = json.getString("contextdata");
 		JsonReader jsonReader = Json.createReader(new StringReader(contentString));
@@ -46,7 +48,9 @@ public class CSVWriter {
 			}
 			System.out.println("CSV File written to: " + path + "\\sensorData" + fileExt);
 			writer.close();
-		} catch(Exception e) {}
+		} catch(Exception e) {
+			System.out.println("Error writing to CSV file: " + e.getMessage());
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -56,7 +60,9 @@ public class CSVWriter {
 		int ioFogPort = 54321;
 		try {
 			ioFogPort = Integer.parseInt(System.getProperty("iofog_port", "54321"));
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			System.out.println("Error parsing integer:" + e.getMessage());
+		}
 		IOFogClient client = new IOFogClient(ioFogHost, ioFogPort, containerId);
 		IOFogAPIListener listener = new IOFogAPIListenerImpl();
 		client.openMessageWebSocket(listener);

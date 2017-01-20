@@ -10,12 +10,27 @@ public class IOFogAPIListenerImpl implements IOFogAPIListener{
 
 	public void onBadRequest(String arg0) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("onBadRequest : " + arg0);
 	}
 
 	public void onError(Throwable arg0) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("onError : " + arg0);
+	}
+
+	public void onMessagesQuery(long arg0, long arg1, List<IOMessage> arg2) {
+		// TODO Auto-generated method stub
+		System.out.println("onMessagesQuery : " + arg0 + " + " + arg1 + " + " + arg2.size());
+	}
+
+	public void onNewConfig(JsonObject arg0) {
+		// TODO Auto-generated method stub
+		System.out.println("onNewConfig : " + arg0);
+	}
+
+	public void onNewConfigSignal() {
+		// TODO Auto-generated method stub
+		System.out.println("onNewConfigSignal");
 	}
 
 	public void onMessageReceipt(String messageID, long timestamp) {
@@ -28,21 +43,6 @@ public class IOFogAPIListenerImpl implements IOFogAPIListener{
 		JsonObject json = msg.getJson(false);
 		CSVWriter writer = new CSVWriter();
 		writer.writeCSV(json);
-	}
-
-	public void onMessagesQuery(long arg0, long arg1, List<IOMessage> arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void onNewConfig(JsonObject arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void onNewConfigSignal() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

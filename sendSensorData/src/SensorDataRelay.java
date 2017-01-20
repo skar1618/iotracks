@@ -1,5 +1,3 @@
-package sendSensorData;
-
 //import java.io.StringReader;
 
 import javax.json.Json;
@@ -20,14 +18,14 @@ public class SensorDataRelay {
 	}
 
 	private double[] generateSensorData(SensorType type) {
+		System.out.println("Generating sensor data");
 		if(type == SensorType.UNIAXIAL) {
 			double[] data = new double[1];
 			int rangeMin = 1;
 			int range = 1;
 			data[0] = rangeMin + Math.random() * range;
 			return data;
-		}
-		else {
+		} else {
 			double[] data = new double[3];
 			int rangeMin = 1;
 			int range = 1;
@@ -39,6 +37,7 @@ public class SensorDataRelay {
 	}
 	
 	private JsonObject createJsonFromData(SensorType type) {
+		System.out.println("createJsonFromData");
 		double[] data = generateSensorData(type);
 		if(type == SensorType.UNIAXIAL) {
 			JsonObject contextJson = Json.createObjectBuilder().add("SensorType", "uniaxial")
@@ -51,8 +50,7 @@ public class SensorDataRelay {
 					.add("contentdata", contentJson.toString())
 					.build();
 			return json;
-		}
-		else {
+		} else {
 			JsonObject contextJson = Json.createObjectBuilder().add("SensorType", "triaxial")
 					.add("SensorNumber", 1)
 					.build();
@@ -68,7 +66,7 @@ public class SensorDataRelay {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		System.out.println("Jan 19th SendSensor start v2");
 		SensorDataRelay relay = new SensorDataRelay();
 		JsonObject json = relay.createJsonFromData(SensorType.TRIAXIAL);
@@ -77,7 +75,9 @@ public class SensorDataRelay {
 		int ioFogPort = 54321;
 		try {
 			ioFogPort = Integer.parseInt(System.getProperty("iofog_port", "54321"));
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			System.out.println("error parsing integer: " + e.getMessage());
+		}
 		IOFogClient client = new IOFogClient(ioFogHost, ioFogPort, containerId);
 		IOFogAPIListener listener = new IOFogAPIListenerImpl();
 		client.openMessageWebSocket(listener);// or IOFog rest API
@@ -85,6 +85,7 @@ public class SensorDataRelay {
 		IOMessage msg = new IOMessage(json, false);
 		System.out.println("IOMessage created");
 		//client.pushNewMessage(msg, listener);
+		Thread.sleep(5000);
 		client.sendMessageToWebSocket(msg);
 		System.out.println("Message sent to web socket");
 		System.out.println("Jan 19th SendSensor end v2");
